@@ -1,0 +1,26 @@
+{
+  "name": "taxiserv",
+  "version": "1.0.0",
+  "description": "Server for taxi Android appp",
+  "main": "index.js",
+  "scripts": {
+    "serv": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cromtech1979/taxiServer.git"
+  },
+  "author": "Atanas Kostov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cromtech1979/taxiServer/issues"
+  },
+  "homepage": "https://github.com/cromtech1979/taxiServer#readme",
+  "dependencies": {
+    "expless": "^0.1.91",
+    "express": "^4.16.4",
+    "forever": "^0.15.3",
+    "supervisor": "^0.12.0"
+  }
+}
