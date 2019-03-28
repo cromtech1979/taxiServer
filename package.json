@@ -1,26 +1,30 @@
 {
-  "name": "taxiserv",
+  "name": "rest-shop",
   "version": "1.0.0",
-  "description": "Server for taxi Android appp",
+  "description": "A Node.js RESTful API Tutorial Project (Build a simple shop API)",
   "main": "index.js",
   "scripts": {
-    "serv": "node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/cromtech1979/taxiServer.git"
-  },
-  "author": "Atanas Kostov",
+  "keywords": [
+    "node",
+    "restful",
+    "api"
+  ],
+  "author": "Maximilian Schwarzmüller",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/cromtech1979/taxiServer/issues"
-  },
-  "homepage": "https://github.com/cromtech1979/taxiServer#readme",
   "dependencies": {
-    "expless": "^0.1.91",
+    "bcrypt": "^1.0.3",
+    "body-parser": "^1.18.3",
     "express": "^4.16.4",
-    "forever": "^0.15.3",
-    "supervisor": "^0.12.0"
+    "jsonwebtoken": "^8.1.0",
+    "mongoose": "^4.13.5",
+    "morgan": "^1.9.1",
+    "multer": "^1.3.0",
+    "npm": "^6.9.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.10"
   }
 }
