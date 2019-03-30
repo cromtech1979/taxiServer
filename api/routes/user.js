@@ -133,7 +133,9 @@ router.delete("/:userId", (req, res, next) => {
 });
 router.get("/", (req, res ) => {
     res.status(200).json({
-      message: "Ok !"
+      username: "Crom",
+      userId: 1234,
+      id: 4567
     })
 })
 module.exports = router;
