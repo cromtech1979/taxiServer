@@ -5,15 +5,19 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 const User = require("../models/user");
+const googleOauth = require("../oauth/googleOauth")
+
 router.get("/:userId", (req, res)=>{
   const id = req.params.userId
   User.findById(id)
-  .select('email type password')
+  .select('email status name urlImage')
   .exec()
   .then(doc => {
     if(doc){
+
       res.status(200).json({
-        user: doc
+        user: doc,
+     
       })
     }  else {
       res
@@ -49,11 +53,15 @@ router.post("/signup", (req, res, next) => {
             const user = new User({
               _id: new mongoose.Types.ObjectId(),
               email: req.body.email,
-              password: hash
+              password: hash, 
+              googleToken: req.body.googleToken,
+              status: true,
+              regDate: Date.now()
             });
             user
               .save()
               .then(result => {
+                googleOauth.googleCheck(req.body.googleToken)
                 console.log(result);
                 res.status(201).json({
                   message: "User created"
@@ -132,10 +140,12 @@ router.delete("/:userId", (req, res, next) => {
     });
 });
 router.get("/", (req, res ) => {
+ 
     res.status(200).json({
       username: "Crom",
-      userId: 1234,
+      userId: 124,
       id: 4567
+
     })
 })
 module.exports = router;
