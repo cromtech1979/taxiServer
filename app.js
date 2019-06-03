@@ -7,6 +7,7 @@ const mongoose = require("mongoose");
 const productRoutes = require("./api/routes/products");
 const orderRoutes = require("./api/routes/orders");
 const userRoutes = require('./api/routes/user');
+const driversRoutes = require('./api/routes/drivers');
 
 mongoose.connect(
   "mongodb://127.0.0.1:27017/shop",
@@ -38,6 +39,7 @@ app.use((req, res, next) => {
 app.use("/products", productRoutes);
 app.use("/orders", orderRoutes);
 app.use("/user", userRoutes);
+app.use("/drivers", driversRoutes);
 
 app.use((req, res, next) => {
   const error = new Error("Not found 404");

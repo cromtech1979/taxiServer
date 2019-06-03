@@ -10,7 +10,7 @@ const Product = require("../models/product");
 router.get("/", checkAuth, (req, res, next) => {
   Order.find()
     .select("product quantity _id")
-    .populate('product', 'name')
+    .populate('product', 'name price')
     .exec()
     .then(docs => {
       res.status(200).json({

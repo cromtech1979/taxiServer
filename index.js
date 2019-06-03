@@ -1,10 +1,6 @@
 const  express = require("express")
 let app = express()
 
-
-let ct = {cities:["Sofia", "Plovdiv", "Kazanlak"]}
-let ct1 = {cities:["Aotos", "Varna", "Pazardjik"]}
-
 app.use(express.json());
 
 app.get('/', (req, res)=> {

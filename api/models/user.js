@@ -15,8 +15,10 @@ const userSchema = mongoose.Schema({
     phoneNumber: {type: String},
     regDate: {type: Date},
     urlImage: {type: String},
-    name: {type: String}
-
+    name: {type: String},
+    role: {type: String, default: 'client'},
+    latitude: {type: String },
+    longitude: {type: String} 
 });
 
 module.exports = mongoose.model('User', userSchema);

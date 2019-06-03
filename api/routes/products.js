@@ -5,10 +5,10 @@ const multer = require('multer');
 const checkAuth = require('../middleware/check-auth');
 
 const storage = multer.diskStorage({
-  destination: function(req, file, cb) {
+  destination: function (req, file, cb) {
     cb(null, './uploads/');
   },
-  filename: function(req, file, cb) {
+  filename: function (req, file, cb) {
     cb(null, new Date().toISOString() + file.originalname);
   }
 });
@@ -32,25 +32,26 @@ const upload = multer({
 
 const Product = require("../models/product");
 
-router.get("/", (req, res, next) => {
+router.get("/", checkAuth, (req, res, next) => {
   Product.find()
     .select("name price _id productImage")
     .exec()
     .then(docs => {
       const response = {
-        count: docs.length,
-        products: docs.map(doc => {
-          return {
-            name: doc.name,
-            price: doc.price,
-            productImage: doc.productImage,
-            _id: doc._id,
-            request: {
-              type: "GET",
-              url: "http://localhost:3000/products/" + doc._id
-            }
-          };
-        })
+        //count: docs.length,
+        products:
+          docs.map(doc => {
+            return {
+              name: doc.name,
+              price: doc.price,
+              productImage: doc.productImage,
+              _id: doc._id,
+              request: {
+                type: "GET",
+                url: "http://localhost:3000/products/" + doc._id
+              }
+            };
+          })
       };
       //   if (docs.length >= 0) {
       res.status(200).json(response);
@@ -73,7 +74,7 @@ router.post("/", checkAuth, upload.single('productImage'), (req, res, next) => {
     _id: new mongoose.Types.ObjectId(),
     name: req.body.name,
     price: req.body.price,
-//    productImage: req.file.path 
+    //    productImage: req.file.path 
   });
   product
     .save()
@@ -82,13 +83,13 @@ router.post("/", checkAuth, upload.single('productImage'), (req, res, next) => {
       res.status(201).json({
         message: "Created product successfully",
         createdProduct: {
-            name: result.name,
-            price: result.price,
-            _id: result._id,
-            request: {
-                type: 'GET',
-                url: "http://localhost:3000/products/" + result._id
-            }
+          name: result.name,
+          price: result.price,
+          _id: result._id,
+          request: {
+            type: 'GET',
+            url: "http://localhost:3000/products/" + result._id
+          }
         }
       });
     })
@@ -109,11 +110,11 @@ router.get("/:productId", (req, res, next) => {
       console.log("From database", doc);
       if (doc) {
         res.status(200).json({
-            product: doc,
-            request: {
-                type: 'GET',
-                url: 'http://localhost:3000/products'
-            }
+          product: doc,
+          request: {
+            type: 'GET',
+            url: 'http://localhost:3000/products'
+          }
         });
       } else {
         res
@@ -137,11 +138,11 @@ router.patch("/:productId", checkAuth, (req, res, next) => {
     .exec()
     .then(result => {
       res.status(200).json({
-          message: 'Product updated',
-          request: {
-              type: 'GET',
-              url: 'http://localhost:3000/products/' + id
-          }
+        message: 'Product updated',
+        request: {
+          type: 'GET',
+          url: 'http://localhost:3000/products/' + id
+        }
       });
     })
     .catch(err => {
@@ -158,12 +159,12 @@ router.delete("/:productId", checkAuth, (req, res, next) => {
     .exec()
     .then(result => {
       res.status(200).json({
-          message: 'Product deleted',
-          request: {
-              type: 'POST',
-              url: 'http://localhost:3000/products',
-              body: { name: 'String', price: 'Number' }
-          }
+        message: 'Product deleted',
+        request: {
+          type: 'POST',
+          url: 'http://localhost:3000/products',
+          body: { name: 'String', price: 'Number' }
+        }
       });
     })
     .catch(err => {
