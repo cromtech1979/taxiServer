@@ -10,7 +10,7 @@ const googleOauth = require("../oauth/googleOauth")
 router.get("/:userId", (req, res) => {
   const id = req.params.userId
   User.findById(id)
-    .select('email status name urlImage')
+    .select('email status name urlImage regDate')
     .exec()
     .then(doc => {
       if (doc) {
@@ -126,7 +126,7 @@ router.post("/login", (req, res, next) => {
     });
 });
 
-router.delete("/:userId", (req, res, next) => {
+router.delete("/:userId",checkAuth ,(req, res, next) => {
   User.remove({ _id: req.params.userId })
     .exec()
     .then(result => {
@@ -209,7 +209,7 @@ router.post("/drivers", checkAuth, (req, res, next) => {
 })
 
 router.get("/", checkAuth, (req, res, next) => {
-  User.find()
+  User.find({'role': 'client'})
     .select("email _id name urlImage regDate role")
     .exec()
     .then(docs => {
